@@ -535,10 +535,11 @@ footer {
     <button class="fb" onclick="setFilter(this,'funding')">💰 Funding</button>
     <button class="fb" onclick="setFilter(this,'expansion')">🌏 Expansion</button>
     <button class="fb" onclick="setFilter(this,'hiring')">👥 Hiring</button>
-    <button class="fb" onclick="setFilter(this,'FinTech')">FinTech</button>
-    <button class="fb" onclick="setFilter(this,'HealthTech')">HealthTech</button>
-    <button class="fb" onclick="setFilter(this,'AI')">AI</button>
-    <button class="fb" onclick="setFilter(this,'EV')">EV</button>
+    <button class="fb" onclick="setFilter(this,'others')">✨ Others</button>
+    
+    
+    
+    
   </div>
 
   <!-- FEED -->
@@ -763,7 +764,8 @@ function renderFeed() {
   filteredCards = CARDS.filter(c => {
     if (activeFilter === 'all') return true;
     if (['funding','expansion','hiring'].includes(activeFilter)) return c.type === activeFilter;
-    return c.sector === activeFilter;
+    if (activeFilter === 'others') return !['funding','expansion','hiring'].includes(c.type);
+    return false;
   });
   document.getElementById('feedGrid').innerHTML = filteredCards.map((c,i) => buildCard(c,i)).join('');
   document.getElementById('feedCount').textContent = `${filteredCards.length} signal${filteredCards.length !== 1?'s':''} today`;
@@ -781,48 +783,45 @@ const SUPA_URL = "https://esiveliffwfopavtfpmo.supabase.co";
 const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzaXZlbGlmZndmb3BhdnRmcG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MzgzOTMsImV4cCI6MjA4ODAxNDM5M30.AVYtkUURd17-oEOETUFrTqb5vq9kIiYQ9IQcERogte4";
 
 async function loadLiveCards() {
+  document.getElementById('feedGrid').innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted)">
+      <div style="font-size:24px;margin-bottom:12px">⏳</div>
+      <div style="font-size:13px;letter-spacing:1px">Loading live signals...</div>
+    </div>`;
   try {
-    document.getElementById('feedGrid').innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted)">
-        <div style="font-size:24px;margin-bottom:12px">⏳</div>
-        <div style="font-size:13px;letter-spacing:1px">Loading live signals...</div>
-      </div>`;
-
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
     const res = await fetch(`${SUPA_URL}/rest/v1/cards?select=*&order=posted_at.desc&limit=50`, {
-      headers: { "apikey": SUPA_KEY, "Authorization": `Bearer ${SUPA_KEY}` }
+      headers: { "apikey": SUPA_KEY, "Authorization": `Bearer ${SUPA_KEY}` },
+      signal: controller.signal
     });
+    clearTimeout(timeout);
     const data = await res.json();
-
-    if (data && data.length > 0) {
-      // Map Supabase data to card format
+    if (data && Array.isArray(data) && data.length > 0) {
       CARDS.length = 0;
       data.forEach(row => {
         CARDS.push({
-          type:     row.type || 'funding',
-          company:  row.company || '',
-          emoji:    row.emoji || '🏢',
-          sector:   row.sector || 'Other',
-          sc:       row.bar_color || '#22c55e',
-          round:    row.type ? row.type.charAt(0).toUpperCase() + row.type.slice(1) : 'Signal',
-          stat:     row.company || '',
-          statLabel:'',
-          headline: row.headline || '',
-          detail:   row.detail || '',
-          time:     timeAgo(row.posted_at),
-          bg:       getBg(row.sector),
-          grad:     getGrad(row.type),
-          ov:       "rgba(0,0,0,0.88)"
+          type:      ['funding','expansion','hiring'].includes(row.type) ? row.type : 'others',
+          company:   row.company || '',
+          emoji:     row.emoji || '🏢',
+          sector:    row.sector || 'Other',
+          sc:        row.bar_color || '#22c55e',
+          round:     row.type ? row.type.charAt(0).toUpperCase() + row.type.slice(1) : 'Signal',
+          stat:      row.company || '',
+          statLabel: '',
+          headline:  row.headline || '',
+          detail:    row.detail || '',
+          time:      timeAgo(row.posted_at),
+          bg:        getBg(row.sector),
+          grad:      getGrad(row.type),
+          ov:        "rgba(0,0,0,0.88)"
         });
       });
-      renderFeed();
-    } else {
-      // No live data yet — show demo cards
-      renderFeed();
     }
   } catch(e) {
-    console.log('Using demo data:', e);
-    renderFeed();
+    console.log('Supabase error, using demo data:', e);
   }
+  renderFeed();
 }
 
 function timeAgo(dateStr) {
