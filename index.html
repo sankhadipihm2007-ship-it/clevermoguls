@@ -475,8 +475,9 @@ nav {
 .vcard-img-bg {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
-  filter: brightness(0.22) saturate(0.6);
+  filter: brightness(0.15) saturate(0.3);
   transition: transform 0.45s;
+  mix-blend-mode: overlay;
 }
 .vcard:hover .vcard-img-bg { transform: scale(1.05); }
 .vcard-img-ov  { position: absolute; inset: 0; }
@@ -504,7 +505,7 @@ nav {
 .vi-headline { font-size: 12px; color: #fff; line-height: 1.5; margin-top: 6px; max-width: 270px; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
 .vi-bot { font-size: 11px; color: rgba(255,255,255,0.9); line-height: 1.5; font-weight: 400; }
 
-.vcard-body { padding: 14px 18px; background: var(--navy); border-top: 3px solid transparent; }
+.vcard-body { padding: 14px 18px; background: rgba(15,22,40,0.95); border-top: 1px solid rgba(255,255,255,0.06); }
 .vcard-meta { display: flex; align-items: center; justify-content: space-between; }
 .vcard-sector {
   font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
@@ -1147,9 +1148,9 @@ function buildCard(c, i) {
   const tc = TYPE_COLORS[c.type] || TYPE_COLORS["others"];
   return `
   <div class="vcard" style="animation-delay:${i*0.07}s" data-type="${c.type}" data-sector="${c.sector}" onclick="openCard(${i})">
-    <div class="vcard-img" style="background:linear-gradient(135deg,${c.grad})">
+    <div class="vcard-img" style="background:linear-gradient(140deg,${c.grad})">
       <div class="vcard-img-bg" style="background-image:url('${c.bg}')"></div>
-      <div class="vcard-img-ov" style="background:linear-gradient(135deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15) 100%)"></div>
+      <div class="vcard-img-ov" style="background:linear-gradient(160deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.35) 100%)"></div>
       <div class="vcard-img-left" style="background:rgba(255,255,255,0.3);width:4px"></div>
       <div class="vcard-img-content">
         <div class="vi-top">
@@ -1310,10 +1311,10 @@ function getBg(sector) {
 
 function getGrad(type) {
   const map = {
-    'funding':'#10b981,#059669',
-    'expansion':'#3b82f6,#1d4ed8',
-    'hiring':'#f59e0b,#d97706',
-    'others':'#06b6d4,#0891b2'
+    'funding':'#00c896,#0052cc',
+    'expansion':'#f97316,#9333ea',
+    'hiring':'#facc15,#f97316',
+    'others':'#06b6d4,#6366f1'
   };
   return map[type] || '#00e5b4,#0064ff';
 }
