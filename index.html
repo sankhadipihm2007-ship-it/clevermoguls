@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clever Moguls — Move Before The Market Does</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Brand palette extracted from logo */
+  --red:      #e8382a;   /* logo red background */
+  --red2:     #c42d1f;   /* darker red for hovers */
+  --navy:     #1a2540;   /* logo dark circle */
+  --navy2:    #070e1c;   /* deeper bg */
+  --cream:    #f5f0e8;   /* logo text white/cream */
+  --bg:       #0a0f1e;
+  --bg2:      #0f1628;
+  --bg3:      #141d32;
+  --border:   rgba(255,255,255,0.07);
+  --text:     #f0ece4;
+  --muted:    rgba(240,236,228,0.4);
+  --green:    #22c55e;
+  --blue:     #4a7fd4;
+  --gold:     #f0c060;
+}
+
+
+/* ── SEARCH BAR ── */
+.search-wrap {
+  max-width: 1400px; margin: 0 auto; padding: 20px 24px 0;
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+}
+.search-input {
+  flex: 1; min-width: 200px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text); font-family: 'Outfit', sans-serif; font-size: 14px;
+  padding: 10px 16px 10px 40px; border-radius: 50px;
+  outline: none; transition: border 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 14px center;
+}
+.search-input:focus { border-color: var(--red); }
+.search-input::placeholder { color: var(--muted); }
+
+/* ── CITY FILTER ── */
+.city-wrap {
+  max-width: 1400px; margin: 0 auto; padding: 12px 24px 0;
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.city-label { font-size: 11px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-right: 4px; }
+.cb {
+  padding: 5px 14px; border-radius: 50px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); font-family: 'Outfit', sans-serif;
+  font-size: 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.cb:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+.cb.active { background: var(--navy); border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+/* ── ENHANCED MODAL ── */
+.modal-signal-info {
+  padding: 16px 30px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-signal-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.modal-signal-tag {
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase;
+}
+.modal-headline {
+  font-size: 15px; font-weight: 600; color: var(--text);
+  line-height: 1.5; margin-bottom: 8px;
+}
+.modal-detail-full {
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+}
+.modal-extra-row {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px;
+}
+.modal-extra-item {
+  font-size: 12px; color: var(--muted);
+}
+.modal-extra-item span { color: var(--text); font-weight: 500; }
+.modal-source {
+  font-size: 11px; margin-top: 8px;
+}
+.modal-source a {
+  color: var(--red); text-decoration: none;
+}
+.modal-source a:hover { text-decoration: underline; }
+
+
+/* ── LOGO WALL ── */
+.logo-wall-wrap {
+  padding: 28px 48px 0;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(26,37,64,0.3) 0%, transparent 100%);
+}
+.logo-wall-label {
+  font-size: 10px; letter-spacing: 2px; color: var(--muted);
+  text-align: center; margin-bottom: 16px; text-transform: uppercase;
+}
+.logo-wall {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; align-items: center;
+  max-width: 1000px; margin: 0 auto; padding-bottom: 24px;
+}
+.logo-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; border-radius: 50px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  font-size: 13px; font-weight: 500; color: var(--text);
+  transition: all 0.2s; cursor: default;
+}
+.logo-pill:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+}
+.logo-pill-emoji { font-size: 16px; }
+.logo-pill-type {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 20px; margin-left: 4px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden; min-height: 100vh;
+}
+
+/* grain */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 0.45;
+}
+
+/* ── PAGE SECTIONS (SPA) ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ══════════════════════════════════
+   NAV
+══════════════════════════════════ */
+nav {
+  position: sticky; top: 0; z-index: 400;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(13,14,20,0.95); backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
+}
+.logo-img { cursor: default !important; 
+  width: 40px; height: 40px; border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(232,56,42,0.5);
+}
+.logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 3px; color: var(--text);
+}
+.logo-text span { color: var(--red); }
+
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-link {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  text-decoration: none; cursor: pointer;
+  transition: color 0.2s; background: none; border: none;
+  font-family: 'Outfit', sans-serif;
+}
+.nav-link:hover, .nav-link.active { color: var(--text); }
+
+.nav-cta {
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700;
+  padding: 9px 22px; border-radius: 8px;
+  background: var(--red); color: #fff; border: none;
+  cursor: pointer; letter-spacing: 0.3px; transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--red2); transform: translateY(-1px); }
+
+/* ══════════════════════════════════
+   TICKER
+══════════════════════════════════ */
+.ticker-wrap {
+  background: rgba(232,56,42,0.06);
+  border-bottom: 1px solid rgba(232,56,42,0.12);
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+}
+.ticker-inner { display: inline-flex; gap: 56px; animation: ticker 45s linear infinite; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-item { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; color: var(--muted); }
+.ticker-item strong { color: var(--red); font-weight: 600; }
+.ticker-sep { color: rgba(232,56,42,0.25); }
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 90px 40px 70px;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; width: 800px; height: 500px;
+  background: radial-gradient(ellipse, rgba(232,56,42,0.1) 0%, transparent 65%);
+  top: 50%; left: 50%; transform: translate(-50%,-60%);
+  pointer-events: none;
+}
+
+.live-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.22);
+  color: var(--green); font-size: 10px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 28px;
+}
+.live-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 1.8s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 11vw, 148px);
+  line-height: 0.88; letter-spacing: 3px; margin-bottom: 28px;
+}
+.hero h1 .l1 { display: block; color: var(--text); }
+.hero h1 .l2 {
+  display: block;
+  background: linear-gradient(90deg, var(--red), #ff6b5b);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.hero-body {
+  max-width: 560px; margin: 0 auto 36px;
+}
+.hero-body p {
+  font-size: 16px; font-weight: 300; color: var(--muted);
+  line-height: 1.75; margin-bottom: 16px;
+}
+.hero-body .hero-punch {
+  font-size: 18px; font-weight: 700; color: var(--text);
+  line-height: 1.5; letter-spacing: 0.2px;
+}
+.hero-body .hero-punch em {
+  font-style: normal; color: var(--red);
+}
+.hero-body .hero-cta-line {
+  font-size: 14px; font-weight: 400; color: var(--muted);
+  margin-top: 10px; line-height: 1.6;
+}
+
+.signal-pills { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 44px; flex-wrap: wrap; }
+.sp {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 15px; border-radius: 100px; border: 1px solid;
+}
+.sp-f { color: var(--red);   background: rgba(232,56,42,0.08); border-color: rgba(232,56,42,0.28); }
+.sp-e { color: var(--blue);  background: rgba(74,127,212,0.08); border-color: rgba(74,127,212,0.28); }
+.sp-h { color: var(--green); background: rgba(34,197,94,0.08);  border-color: rgba(34,197,94,0.28); }
+
+.scroll-cue {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: var(--muted); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; animation: float 2.5s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+.scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, transparent, var(--red)); opacity: 0.5; }
+
+/* ══════════════════════════════════
+   FILTER BAR
+══════════════════════════════════ */
+.filter-bar { display: flex; align-items: center; gap: 10px; padding: 28px 48px 22px; flex-wrap: wrap; }
+.fb {
+  font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 500;
+  padding: 7px 16px; border-radius: 100px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--muted); cursor: pointer; transition: all 0.2s;
+}
+.fb:hover { border-color: rgba(232,56,42,0.3); color: var(--red); }
+.fb.active { background: rgba(232,56,42,0.12); border-color: rgba(232,56,42,0.4); color: var(--red); }
+
+/* ══════════════════════════════════
+   FEED
+══════════════════════════════════ */
+.feed-wrap { padding: 0 48px 100px; }
+.feed-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.feed-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.feed-count { font-size: 11px; color: var(--muted); background: var(--bg3); border: 1px solid var(--border); padding: 4px 12px; border-radius: 100px; }
+.feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
+/* ── VISUAL CARD ── */
+.vcard {
+  border-radius: 16px; overflow: hidden;
+  background: var(--bg2); border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  animation: cardIn 0.55s both;
+}
+@keyframes cardIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.vcard:hover { transform: translateY(-5px); box-shadow: 0 24px 64px rgba(0,0,0,0.6); border-color: rgba(232,56,42,0.2); }
+
+.vcard-img { position: relative; height: 210px; overflow: hidden; }
+.vcard-img-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  filter: brightness(0.22) saturate(0.6);
+  transition: transform 0.45s;
+}
+.vcard:hover .vcard-img-bg { transform: scale(1.05); }
+.vcard-img-ov  { position: absolute; inset: 0; }
+.vcard-img-left{ position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.vcard-img-content {
+  position: absolute; inset: 0; padding: 20px 22px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+.vi-top { display: flex; align-items: center; justify-content: space-between; }
+.vi-company { display: flex; align-items: center; gap: 9px; }
+.vi-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.vi-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: #fff; letter-spacing: 2.5px; }
+.vi-badge {
+  font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.65);
+}
+.vi-amount {
+  font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; letter-spacing: 1px;
+}
+.vi-headline { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.45; margin-top: 4px; max-width: 270px; }
+.vi-bot { font-size: 10px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+
+.vcard-body { padding: 14px 18px; }
+.vcard-meta { display: flex; align-items: center; justify-content: space-between; }
+.vcard-sector {
+  font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+}
+.vcard-time { font-size: 11px; color: var(--muted); }
+
+/* ══════════════════════════════════
+   ABOUT PAGE
+══════════════════════════════════ */
+.about-wrap {
+  max-width: 760px; margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+.about-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 16px;
+}
+.about-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 6vw, 72px);
+  letter-spacing: 2px; line-height: 1;
+  margin-bottom: 32px; color: var(--text);
+}
+.about-title span { color: var(--red); }
+
+.about-lead {
+  font-size: 18px; font-weight: 400; color: rgba(240,236,228,0.75);
+  line-height: 1.75; margin-bottom: 28px;
+  border-left: 3px solid var(--red); padding-left: 20px;
+}
+.about-body {
+  font-size: 15px; font-weight: 300; color: var(--muted);
+  line-height: 1.85; margin-bottom: 24px;
+}
+.about-body strong { color: var(--text); font-weight: 600; }
+
+.about-divider { width: 40px; height: 2px; background: var(--red); margin: 36px 0; opacity: 0.6; }
+
+.about-title2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+  letter-spacing: 2px; color: var(--text); margin-bottom: 20px;
+}
+
+.about-pillars { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.pillar {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 20px; border-radius: 12px;
+  background: rgba(255,255,255,0.025); border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.pillar:hover { border-color: rgba(232,56,42,0.2); }
+.pillar-dot {
+  width: 8px; height: 8px; background: var(--red);
+  border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.pillar-text { font-size: 14px; font-weight: 400; color: rgba(240,236,228,0.72); line-height: 1.6; }
+
+.about-mission {
+  background: rgba(232,56,42,0.06);
+  border: 1px solid rgba(232,56,42,0.18);
+  border-radius: 16px; padding: 28px 32px;
+  font-size: 16px; font-weight: 400; color: var(--text); line-height: 1.7;
+}
+.about-mission strong { color: var(--red); font-weight: 700; }
+
+.about-cta {
+  margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap;
+}
+.about-btn-primary {
+  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+  padding: 14px 30px; border-radius: 10px;
+  background: var(--red); color: #fff; border: none;
+  cursor: pointer; transition: all 0.2s;
+}
+.about-btn-primary:hover { background: var(--red2); transform: translateY(-1px); }
+.about-btn-ghost {
+  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
+  padding: 13px 28px; border-radius: 10px;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); cursor: pointer; transition: all 0.2s;
+}
+.about-btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+/* ══════════════════════════════════
+   OVERLAY / MODAL
+══════════════════════════════════ */
+.overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px; transition: opacity 0.35s; opacity: 0;
+}
+.overlay.open { display: flex; opacity: 1; }
+
+/* Main card modal */
+.modal {
+  background: var(--bg2); border: 1px solid rgba(232,56,42,0.2);
+  border-radius: 20px; width: 100%; max-width: 440px;
+  overflow: hidden; position: relative;
+  transform: translateY(30px) scale(0.97);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.overlay.open .modal { transform: translateY(0) scale(1); }
+
+.modal-ctx {
+  padding: 26px 30px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 13px;
+}
+.modal-ctx-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.modal-ctx-co { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; margin-bottom: 3px; }
+.modal-ctx-detail { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.5; }
+.modal-close { position: absolute; top: 18px; right: 20px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; transition: color 0.2s; line-height: 1; }
+.modal-close:hover { color: var(--text); }
+
+/* Single CTA */
+.modal-body { padding: 22px 30px 20px; }
+.cta-single {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 22px; border-radius: 12px;
+  border: 1px solid rgba(232,56,42,0.3);
+  background: rgba(232,56,42,0.07);
+  cursor: pointer; width: 100%; text-align: left;
+  transition: all 0.22s; margin-bottom: 14px;
+}
+.cta-single:hover { background: rgba(232,56,42,0.14); border-color: rgba(232,56,42,0.55); transform: translateY(-1px); }
+.cta-single-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+.cta-single-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--text); margin-bottom: 3px; }
+.cta-single-sub { font-size: 11px; font-weight: 300; color: var(--muted); }
+.cta-arr-red { color: var(--red); font-size: 22px; }
+
+/* Free footer */
+.modal-foot { padding: 14px 30px 18px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.forever-tag { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); color: var(--green); white-space: nowrap; }
+.foot-note { font-size: 11px; font-weight: 300; color: var(--muted); }
+
+/* ── CONTACT FORM PANEL ── */
+.panel {
+  background: var(--bg2); border-radius: 20px;
+  width: 100%; max-width: 440px;
+  padding: 36px 32px; position: relative;
+  transform: translateY(30px) scale(0.97);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  display: none;
+}
+.overlay.contact-open .modal  { display: none; }
+.overlay.contact-open .contact-panel {
+  display: block;
+  border: 1px solid rgba(232,56,42,0.22);
+  transform: translateY(0) scale(1);
+}
+.overlay.connected-open .modal  { display: none; }
+.overlay.connected-open .connected-panel {
+  display: block;
+  border: 1px solid rgba(74,127,212,0.22);
+  transform: translateY(0) scale(1);
+}
+
+.panel-close { position: absolute; top: 18px; right: 20px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; }
+.p-rule { width: 30px; height: 2px; margin-bottom: 18px; border-radius: 2px; }
+.p-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 7px; }
+.p-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 2px; color: var(--text); margin-bottom: 8px; line-height: 1; }
+.p-sub { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.65; margin-bottom: 22px; }
+
+.p-input {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text);
+  font-family: 'Outfit', sans-serif; font-size: 13px;
+  margin-bottom: 10px; outline: none; transition: border-color 0.2s;
+}
+.p-input:focus { border-color: rgba(232,56,42,0.45); }
+.p-input.blue:focus { border-color: rgba(74,127,212,0.45); }
+.p-input.required-field { border-color: rgba(232,56,42,0.2); }
+
+.p-textarea {
+  width: 100%; padding: 12px 16px; height: 90px; resize: vertical;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text);
+  font-family: 'Outfit', sans-serif; font-size: 13px;
+  margin-bottom: 10px; outline: none; transition: border-color 0.2s;
+}
+.p-textarea:focus { border-color: rgba(232,56,42,0.45); }
+.p-textarea.blue:focus { border-color: rgba(74,127,212,0.45); }
+
+.p-required { font-size: 10px; color: var(--red); opacity: 0.7; margin-bottom: 14px; display: block; }
+
+.p-btn {
+  width: 100%; padding: 14px;
+  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+  border: none; border-radius: 11px; cursor: pointer;
+  margin-bottom: 10px; transition: all 0.2s;
+}
+.p-btn-red  { background: var(--red);  color: #fff; }
+.p-btn-red:hover  { background: var(--red2); transform: translateY(-1px); }
+.p-btn-blue { background: var(--blue); color: #fff; }
+.p-btn-blue:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.p-note { font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.2); text-align: center; }
+
+/* success state */
+.success-msg {
+  text-align: center; padding: 20px 0;
+  display: none;
+}
+.success-icon { font-size: 44px; margin-bottom: 14px; }
+.success-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; margin-bottom: 8px; }
+.success-sub { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 28px 48px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-logo img { width: 28px; height: 28px; border-radius: 50%; opacity: 0.6; }
+.footer-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 3px; color: var(--muted); }
+.footer-note { font-size: 11px; color: rgba(255,255,255,0.15); }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo" >
+    <img class="logo-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wgARCABkAGQDASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAYIAwUHBAEC/8QAHAEBAAEFAQEAAAAAAAAAAAAAAAYBAgMFBwQI/9oADAMBAAIQAxAAAAHUCIfRIAAAAAAAkmfW4/Dw2JyLmNlPfVzZZfNYHB4N3oOieMeCSgASeuXd+Gynj8X+2Nmexi9O/tnt+VUsFG4pj9PRm11UK72FMgGevVn+fy3iuOM9+evQVYzWZ/Na8yinaNTbdvI9mwwrv4W5wPdvon7PdGa5/ixPMJTyfwQyWTq/DzCzn4jeg6H8Gk6CAAA2uqVxyDS4VbAtzgAAAAAAAAf/xAAlEAACAwABAwMFAQAAAAAAAAAEBQIDBgEAByATFBUQETAxQBb/2gAIAQEAAQUC/urTyjRcenD5i5VXdSGqlRbTOn8BJIuQXttMc4J+gDIpURn9JW46Ip4r8kI1UyNE8u0LaMJS5srlTPr7dewMqqzzH/Qg+Lq7kDB5VfS00VurOjrNZn1g7YLPLPcM+aVy7uTpCLnGIOkI0a0e1ZeGnj62MCiRySJtH70ojbv4X08sShooGMrju384oEy6Yen0EuJuvAWj5RT29WXLu4GV4WcaK0WoV6F6XLRlp0nyx3cJVzxluRXewut5vt8Ai5gFarmV5lBN4BMybrIKdUQlp/fStUQ4MIppzqnyoI9OLFEI+6Oxtosq80TZNd24Js6ovCzw37/DQ1MF4loGMuLbrL5f3//EADERAAECBAEJBgcAAAAAAAAAAAECAwAEBRESBhATICEwMUFxFSIjUWHRMjOBkaGxwf/aAAgBAwEBPwHcT8+1T2tK79B5xM5QT0we6rCPT3hqtT7JuHSeu2KTWkVHw1iy/wB9NTKGaL88pPJGz3i8Yol31y7iXkcRDaw4gLHPPW2izPu357fvF4vCApRwiGG9E0hvyAGetUjtFAW38Y/PpDzDsuvA8mxhKSo2TFDoa21iamha3Af06q20OCyxeG2GmvloA6Dd/wD/xAAkEQACAgEDAwUBAAAAAAAAAAABAgADBBESIRATMQUgMEFRIv/aAAgBAgEBPwH4KaWubasr9PqQf1zGwqW+pk4jUc/XswKwlW79m6bpYgtQgwjQ6dcJwaBNR+TdC2gJMY7mJ64uR2G58RLUsGqmFlXkzMzA47dftBI8QszeT8f/xABDEAACAQICBQYHDAsAAAAAAAABAgMEEQASBSExQVETFCJhcYEQIDJCgpGhBhUjMDNSU2KSorHBFiRAUHJzdMLR4fD/2gAIAQEABj8C/bhUVcqUNOdjzbW/hXacWPKSkb6iZYB9npP7MWVqHs57Kp9bQ2xywzxw/TXWaH7aXt3gYGYamF1YG4YcQd/xCVtYgmr5RenpW2L9Zv8Av9PNNOxdtV99uHUOrwiaknenlHnIbY5u8KRVjazAvRiqT9X5knsOEdGzwyC6Pa3ceBG8eNJU1OqkpEM0ndiesm889FfmruGAACSTYWwUdSjjarCxHheo5vMkcTWaXIbKe3BV9c8t839Qovf00B708aoy6nrKgR+iozfljR9LUfIySgMOI4Yq9CikjmojLzaGlyWEVjqcW6tePfOujgljqpQJnqJGXk0VQLIq62Y2xofSi0oh0dDFUvVcsNyHKoYfO14WfRwB0PNSZOTzItOt9rPruzdVsVNFTVok0a8cfQjYMp3/AI4sD50cgHWsg/tL+vFTENiyG3Z4tKB5s8g+5m/AHCGlWRp0OdeSF2Ft+FgoqWlOkmGupihAmcDXrJ7MVSmtkgaR/hEUAZW2auGDBFzmanZ/k0zFS3ZxxSxczlWSpuIQ4y57duKCtj/VXCyc9aoboxkNYdeI6TlYp3zomeBsytmKjUe/FYR9JbxamhCGR1dZ1jXaw8mQDryscCmmGWSlEof1W/PHvnBJE9RpYXSnQ64RkzSX9IWxBlpof0fkppKmtqZIwRIzZtrdttWPcy+ja1F0UIgq0iSdJpNebMvt7saIq5K3VSTz5oVQkqWPlHq/ziAwV1ZFKhfNyUIaNwWubq1tvsxWabhpOZ6PpV5XJs12sO8m57sPI3lOSx8WOePy0N8UumtBSGHSskRQrkBEw3rr88cN47MCWGR6edNjIcrDGV5XZb5rFt+LU1NSLUZSq1Zi+FUHgfBHTU0Zkkc2AGI9C0rB3vnqpV85+Hd47Ruolgfyo239fUevGc5ppvpYyq1PpA2WXtFmwbVkI+rVBqdvvi3txlE1Kf5c6y+xLnAkqm5tBvlqBya9wPSPqXtw1PohSZWGWStcWY9S8B8VaKplQcA2rFudyDsNsZpHaRuLG/7g/8QAKRABAAEDAwMDBAMBAAAAAAAAAREAIUExUWFxgZEgofAQMMHxQFCx0f/aAAgBAQABPyH+c1/4Zf21Hg1p9mLxhA7mkoF2VAfIeEv4NzSsawlsgsOT7GIVrTb24/dCqwqccGPAtvLf688fG4dzhpJRdjzSdNtL9kuVKlOaRJhDIEwJ6m/EW6QJD5tTRo6rYtHoflzUCtQJl2KW3MSA5PpJFixVoNInjjCzcqUhLjs3vHO59SipFTWT/tneszWKM3lEd6J6YZEMITYPdOKil+CSPBJHMR3qcdilFKK24Zhp4eDJvjngcJ1rSkqcuGfwKJWHfg+2oIyDR1W9vS2Wt1FQXPxERdCNoms8w55hURsg2pyaIYC7RfbEXpUZgzN4WfdU/Q3FNUMNKJ7CL1aBlM2B0oMgF1KTodsNaZEvC3pXcBJDzCJUIJBizl0YNEYZVopJxPyTQ/PYtEpSZLIctWsDpvkg1QuXL3qHeLUL6eEY1hzUrr5ChWSjo6yaLdZYJFyBbQJnOrl3UhZ9L3xCbO49SmEcgAMJELi0LTR4/Mu3RuXMlX1flklqxvSM43YZcib6otKpVlc1vSdx/wA5cUNFYNat4geDM+uxSk5CFwJcNQXKnQXiL94DZGgaDwb1A8EVID855PaoAYNQ8a6dC0IEB7Hy5b0qpbv2SATm+zSpEN8lq5Cx17/0H//aAAwDAQACAAMAAAAQ/wD/AP8A/wD/AP8A6mM6/wD/APj+cv8A/wDzFun/AP8A/b/ng/8A/wD+/wD/AP8A/wD/AP8A/wD/AP8A/8QAJREBAAECBAYDAQAAAAAAAAAAAREAITFBUXEQYYGRobEwwdEg/9oACAEDAQE/EPgfpK2DFaH25dhculn3xL1DlR3lCw979ko9gZMZDX7Dc1bxxTblDyt1noFWtytlMTDifmzg8qwFwJsk8Sw4ocy73J0qA4VObFCwlWDdwKZz8gDiUYDtOA1exyZ1kdMPJI7anMtQEpXIutT1lz4z4IyMZuxH8wLjRBPNLzsIej4//8QAIhEBAAIBAgcBAQAAAAAAAAAAAQARITFBECAwUWFx0ZHh/9oACAECAQE/EOgHL+TEFvPyH0E9YjNM9/b395L3M5TBBJXYhF6kZltxpTYr8lDUWvBE0yTzirxxmb1+wgRgClR0mN3lVtVNcn29P//EACYQAQEAAgEEAQMFAQAAAAAAAAERACExQVFhcSAQMKFAgZGx8FD/2gAIAQEAAT8Q/XD6c6FcE2OgeFxuNM3n/Rz3lvNqLeh37Qxx4UJ1+GaVqjNYiJGcLre4nn7CF7/2BkKTksDdwKlJZnzwvXrTtL6cQ+Fodk03UEepjdFvQm02zcOlmAyxkZSc7VJtB2X4jGMepSTrUWdRnXH9mNpBPE1eV5Fgo4MU+gDlaaMtGRjsCAj7+gAJ5ENHvFscaS4689AUdk5MYGICCaIOLg4ZXyXL8iJAelDxPXEYKS0Fdmztd9G8NjJT2pJ5GBAQOH18RICsYmHQhyJuZRbHKUEK9amCZ/jPVSyiKtIpAFw9mOXUhyMRQWgY5iLiCS/8d5P9vElU/wAj4n8uicGSAooM8sgVOo6S4BuAIzo7mEAmhuY3kkdAjppvfI8q4SWazsItksmqypey7kMirmpKdzN+ASmphii+lTcTQJsZAUKtBQII4xghU7wvyPxIxrFmEdYUbpjU5QItO7wD1EeuF1lBOOcoRp3SjFTjpKAaGpxAA7ObZKKZuxjoE0mhcT85KgXnAFSFCIplEs6HozTZRUxGOkeIejFwAO01Ymie6l+X4x7yDw8eEiPhw2SbOUdC4VI2AkLnWkICmhQJpTFTGh/ZamUqry3LyqHiJCdSCcZZDHIIqmq4Zgw/LlrwA2mgK6wcFSOHCc6gOm7q/KsctwnVhfbi7HkVA8h0AAuM6UBRgrpIeI1+8+ewS3cWPpx6LxvtWN+eS512uhkMv10aj6+4RXby3CKNVar9nVn4lv3v9MapnO//ACBxQy8of7pf+B//2Q==" alt="Clever Moguls" onerror="this.style.display='none'">
+    <div class="logo-text">CLEVER <span>MOGULS</span></div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" id="navHome"   >Live Signals</button>
+    <button class="nav-link"        id="navAbout"  onclick="showPage('about')">About Us</button>
+    <button class="nav-link"        onclick="openConnectedDirect()">Get Connected</button>
+  </div>
+  <button class="nav-cta" onclick="openConnectedDirect()">Get Connected →</button>
+</nav>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item"><strong>Clever Moguls</strong> · Live Indian Business Signals <span class="ticker-sep">|</span></span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: HOME
+══════════════════════════════ -->
+<div class="page active" id="pageHome">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="live-chip"><span class="live-dot"></span> Live · Updated Every Hour</div>
+    <h1>
+      <span class="l1">Move Before</span>
+      <span class="l2">The Market Does.</span>
+    </h1>
+    <div class="hero-body">
+      <p>Know who's raising capital, entering new markets, scaling teams, and more — before the rest of the market does.</p>
+      <div class="hero-punch">
+        Real-time <em>BUSINESS INTELLIGENCE</em> delivered to your doorstep.<br>
+        Act early. Win bigger.
+      </div>
+      <div class="hero-cta-line">
+        Get connected with high-prospect companies and unlock a customised <strong style="color:var(--text)">EXTENDED SALES & MARKETING ENGINE</strong> — at an <em style="font-style:normal;color:var(--red);font-weight:700">UNBELIEVABLE PRICING.</em>
+      </div>
+    </div>
+    <div class="signal-pills">
+      <div class="sp sp-f">💰 Funding Rounds</div>
+      <div class="sp sp-e">🌏 Expansion Moves</div>
+      <div class="sp sp-h">👥 Hiring Spikes</div>
+    </div>
+    <div class="scroll-cue" onclick="document.getElementById('feed').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-line"></div>
+      See Live Signals
+    </div>
+  </section>
+
+  <!-- LOGO WALL -->
+  <div class="logo-wall-wrap">
+    <div class="logo-wall-label">COMPANIES IN THE SPOTLIGHT THIS WEEK</div>
+    <div class="logo-wall" id="logoWall">
+      <!-- filled by JS from live cards -->
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="feed">
+    <button class="fb active" onclick="setFilter(this,'all')">All Signals</button>
+    <button class="fb" onclick="setFilter(this,'funding')">💰 Funding</button>
+    <button class="fb" onclick="setFilter(this,'expansion')">🌏 Expansion</button>
+    <button class="fb" onclick="setFilter(this,'hiring')">👥 Hiring</button>
+    <button class="fb" onclick="setFilter(this,'others')">✨ Others</button>
+    
+    
+    
+    
+  </div>
+
+  <!-- FEED -->
+  <div class="feed-wrap">
+    <div class="feed-hdr">
+      <div class="feed-label">Latest Signals</div>
+      <div class="feed-count" id="feedCount">8 signals today</div>
+    </div>
+    <div class="feed-grid" id="feedGrid"></div>
+  </div>
+
+</div><!-- /pageHome -->
+
+<!-- ══════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════ -->
+<div class="page" id="pageAbout">
+  <div class="about-wrap">
+    <div class="about-eyebrow">About Clever Moguls</div>
+    <div class="about-title">Growth Belongs To Those<br>Who Move <span>First & Fast</span></div>
+
+    <div class="about-lead">
+      In today's fast-moving business landscape, opportunities don't wait — they appear quietly in funding announcements, expansion plans, hiring surges, and strategic shifts. The companies that win are the ones who see these signals early and act decisively & strategically at the correct time.
+    </div>
+
+    <div class="about-body">
+      That's where we come in.
+    </div>
+
+    <div class="about-body">
+      We track <strong>high-growth companies across India</strong> — from startups raising capital to enterprises expanding into new markets, setting up for IPO and scaling their teams. But we don't stop at insights.
+    </div>
+
+    <div class="about-body">
+      We connect you directly with these companies and help you leverage the opportunity through a <strong>customised extended sales & marketing engine</strong> built around your business goals.
+    </div>
+
+    <div class="about-divider"></div>
+
+    <div class="about-title2">Think of Us as Your Unfair Advantage</div>
+
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div class="pillar-text">Real-time business growth signals — funding, expansion, hiring, all tracked and delivered to you before the market reacts</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div class="pillar-text">Direct access to decision-makers — verified contacts for founders, CXOs and key leads at high-growth companies</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div class="pillar-text">A cost-effective, performance-driven sales & marketing extension — built around your specific business goals</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div class="pillar-text">Faster conversations. Better conversions. Smarter growth. We make the introduction, you close the deal</div>
+      </div>
+    </div>
+
+    <div class="about-mission">
+      <strong>Our mission is simple:</strong> To help ambitious businesses act before the market reacts.<br><br>
+      Because in business, timing isn't everything — <strong>it's the only thing.</strong>
+    </div>
+
+    <div class="about-cta">
+      <button class="about-btn-primary" onclick="openConnectedDirect()">Get Connected →</button>
+      <button class="about-btn-ghost" >See Live Signals</button>
+    </div>
+  </div>
+</div><!-- /pageAbout -->
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <img src="data:image/jpeg;base64,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" alt="CM" onerror="this.style.display='none'">
+    <span>CLEVER MOGULS</span>
+  </div>
+  <div class="footer-note">Powered Business Intelligence · Updated Every Hour · Indian Business Signals</div>
+</footer>
+
+<!-- ══════════════════════════════
+     OVERLAY + MODALS
+══════════════════════════════ -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+
+  <!-- CARD MODAL: context + single CTA -->
+  <div class="modal" id="mainModal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <div class="modal-ctx">
+      <div class="modal-ctx-icon" id="mIcon"></div>
+      <div>
+        <div class="modal-ctx-co" id="mCo"></div>
+        <div class="modal-ctx-detail" id="mDetail"></div>
+      </div>
+    </div>
+    <div class="modal-signal-info">
+      <div class="modal-signal-row">
+        <span class="modal-signal-tag" id="mTypeTag"></span>
+        <span class="modal-signal-tag" id="mSectorTag" style="background:rgba(255,255,255,0.05);color:var(--muted)"></span>
+      </div>
+      <div class="modal-headline" id="mHeadline"></div>
+      <div class="modal-detail-full" id="mDetailFull"></div>
+      <div class="modal-detail-full" id="mWhyMatters" style="margin-top:8px;color:rgba(240,236,228,0.65)"></div>
+      <div style="margin-top:10px;padding:10px 14px;border-radius:10px;background:rgba(232,56,42,0.08);border:1px solid rgba(232,56,42,0.2);font-size:12px;color:var(--red);font-weight:500" id="mHook"></div>
+      <div class="modal-extra-row">
+        <div class="modal-extra-item" id="mCity"></div>
+        <div class="modal-extra-item" id="mTime"></div>
+      </div>
+      <div class="modal-source" id="mSource"></div>
+    </div>
+    <div class="modal-body">
+      <button class="cta-single" onclick="openContact()">
+        <div>
+          <div class="cta-single-label">Take The Next Step</div>
+          <div class="cta-single-title">Contact Us</div>
+          <div class="cta-single-sub">Our team will reach out within 24 hours</div>
+        </div>
+        <div class="cta-arr-red">→</div>
+      </button>
+    </div>
+    <div class="modal-foot">
+      <span class="forever-tag">Forever Free</span>
+      <span class="foot-note">View-only access · No sign up needed · Always free</span>
+    </div>
+  </div>
+
+  <!-- CONTACT PANEL (from card click) -->
+  <div class="panel contact-panel" id="contactPanel">
+    <button class="panel-close" onclick="closeAll()">✕</button>
+    <div class="p-rule" style="background:var(--red)"></div>
+    <div class="p-label" style="color:var(--red)">Take The Next Step</div>
+    <div class="p-title">Contact Us</div>
+    <div class="p-sub">Leave your details and we'll get back to you within 24 hours.</div>
+
+    <div id="contactForm">
+      <input  class="p-input"          type="text"  id="c_name"    placeholder="Your name" />
+      <input  class="p-input"          type="text"  id="c_company" placeholder="Company" />
+      <input  class="p-input required-field" type="tel" id="c_phone" placeholder="Contact number *" />
+      <span   class="p-required">* Contact number is mandatory</span>
+      <textarea class="p-textarea"     id="c_remarks" placeholder="Remarks (optional)"></textarea>
+      <button class="p-btn p-btn-red"  onclick="submitContact()">Send →</button>
+      <div class="p-note">We'll respond within 24 hours</div>
+    </div>
+    <div class="success-msg" id="contactSuccess">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Done!</div>
+      <div class="success-sub">We've received your details and will reach out within 24 hours.</div>
+    </div>
+  </div>
+
+  <!-- GET CONNECTED PANEL -->
+  <div class="panel connected-panel" id="connectedPanel">
+    <button class="panel-close" onclick="closeAll()">✕</button>
+    <div class="p-rule" style="background:var(--blue)"></div>
+    <div class="p-label" style="color:var(--blue)">Get Connected</div>
+    <div class="p-title">Let's Talk</div>
+    <div class="p-sub">Tell us about your business and how we can help you move faster than your competition.</div>
+
+    <div id="connectedForm">
+      <input    class="p-input blue" type="text"  id="g_name"   placeholder="Your name" />
+      <input    class="p-input blue" type="text"  id="g_company" placeholder="Company" />
+      <input    class="p-input blue" type="text"  id="g_desig"  placeholder="Designation" />
+      <input    class="p-input blue" type="email" id="g_email"  placeholder="Email" />
+      <input    class="p-input blue required-field" type="tel" id="g_phone" placeholder="Contact number *" />
+      <textarea class="p-textarea blue" id="g_more" placeholder="Tell us more on how we can assist you"></textarea>
+      <button   class="p-btn p-btn-blue" onclick="submitConnected()">Contact Us for Custom Pricing →</button>
+      <div class="p-note">Custom pricing · We reply within 24 hours</div>
+    </div>
+    <div class="success-msg" id="connectedSuccess">
+      <div class="success-icon">🤝</div>
+      <div class="success-title">We'll Be In Touch!</div>
+      <div class="success-sub">Our team will review your enquiry and get back within 24 hours with a custom proposal.</div>
+    </div>
+  </div>
+
+</div><!-- /overlay -->
+
+<script>
+// ══ CARD DATA ══
+const CARDS = [
+  { type:"funding",   company:"Pulse",          emoji:"🏥", sector:"HealthTech", sc:"#22c55e", round:"Seed",      stat:"$4 Mn",    statLabel:"Raised",       headline:"Full-stack medical equipment brand partnering with MSMEs for globally-compliant products.", detail:"3one4 Capital · Stride Ventures · Incubate Fund Asia",       time:"2h ago",  bg:"https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&q=70", grad:"#00e5b4,#0064ff", ov:"rgba(0,20,60,0.88)"  },
+  { type:"expansion", company:"SoundHound AI",  emoji:"🔊", sector:"AI",         sc:"#a855f7", round:"Expansion", stat:"Bengaluru", statLabel:"Hub Opened",   headline:"Opens India innovation centre for next-gen agentic AI and voice assistant ecosystem.",    detail:"Nasdaq-listed · SOUN stock +3% on launch day",               time:"6h ago",  bg:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=70", grad:"#ff6a00,#a855f7", ov:"rgba(20,0,50,0.92)"  },
+  { type:"funding",   company:"Gut Clinic",     emoji:"🫁", sector:"HealthTech", sc:"#22c55e", round:"Seed",      stat:"$1 Mn",    statLabel:"Raised",       headline:"Integrated gastro, liver & metabolic care expanding diagnostic capabilities across India.", detail:"Alpha Wave Global · Forj Capital · Reliance Industries SVP",  time:"9h ago",  bg:"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&q=70", grad:"#00e87a,#00b4a0", ov:"rgba(10,40,20,0.9)"  },
+  { type:"hiring",    company:"Ola Electric",   emoji:"⚡", sector:"EV",         sc:"#facc15", round:"Hiring",    stat:"250+",     statLabel:"Engineers",    headline:"Biggest hiring spike in 18 months — manufacturing and software roles across 3 cities.",    detail:"Bengaluru · Pune · Chennai · Series 4 launch prep",          time:"12h ago", bg:"https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=70", grad:"#facc15,#f97316", ov:"rgba(20,15,0,0.9)"   },
+  { type:"expansion", company:"Zepto",          emoji:"🛒", sector:"QComm",      sc:"#f97316", round:"Expansion", stat:"30 Cities",statLabel:"New Markets",  headline:"Dark store network crosses 1,000 locations as Zepto bets big on Tier 2 India.",           detail:"Quick Commerce · ₹4,500 Cr war chest deployed",             time:"1d ago",  bg:"https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=70", grad:"#fb923c,#f43f5e", ov:"rgba(30,10,0,0.9)"   },
+  { type:"funding",   company:"CropIn",         emoji:"🌾", sector:"AgriTech",   sc:"#84cc16", round:"Series C",  stat:"$20 Mn",  statLabel:"Raised",       headline:"AI-powered smart farming platform scaling into Southeast Asia — 7M+ farmers served.",      detail:"ABC Impact · Beenext · Chiratae Ventures",                   time:"1d ago",  bg:"https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=70", grad:"#84cc16,#22c55e", ov:"rgba(10,20,0,0.9)"   },
+  { type:"hiring",    company:"Razorpay",       emoji:"💳", sector:"FinTech",    sc:"#3b82f6", round:"Hiring",    stat:"100",     statLabel:"Engineers",    headline:"Sprint to build international payments infrastructure — backend and ML-heavy roles.",        detail:"Bengaluru & Remote · Series F · Global expansion",           time:"2d ago",  bg:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=70", grad:"#00e5b4,#0064ff", ov:"rgba(0,10,40,0.9)"   },
+  { type:"expansion", company:"PhysicsWallah",  emoji:"📚", sector:"EdTech",     sc:"#f472b6", round:"Expansion", stat:"200",     statLabel:"New Centres",  headline:"EdTech giant goes offline — 200 centres across 50 cities targeting 1M new students.",      detail:"Tier 2 & 3 India · ₹5,000 Cr offline bet",                  time:"2d ago",  bg:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=70", grad:"#f472b6,#8b5cf6", ov:"rgba(30,0,30,0.9)"   },
+];
+
+const TYPE_LABEL  = { funding:"💰 Funding", expansion:"🌏 Expansion", hiring:"👥 Hiring", others:"✨ Others" };
+const TYPE_COLORS = {
+  funding:   { bg:"rgba(16,185,129,0.1)", border:"rgba(16,185,129,0.3)", color:"#10b981" },
+  expansion: { bg:"rgba(74,127,212,0.1)", border:"rgba(74,127,212,0.3)", color:"#4a7fd4" },
+  hiring:    { bg:"rgba(245,158,11,0.1)", border:"rgba(245,158,11,0.3)", color:"#f59e0b" },
+  others:    { bg:"rgba(6,182,212,0.1)",  border:"rgba(6,182,212,0.3)",  color:"#06b6d4" },
+};
+
+let activeFilter = 'all';
+let filteredCards = [];
+
+function buildCard(c, i) {
+  const tc = TYPE_COLORS[c.type] || TYPE_COLORS["others"];
+  return `
+  <div class="vcard" style="animation-delay:${i*0.07}s" data-type="${c.type}" data-sector="${c.sector}" onclick="openCard(${i})">
+    <div class="vcard-img">
+      <div class="vcard-img-bg" style="background-image:url('${c.bg}')"></div>
+      <div class="vcard-img-ov" style="background:linear-gradient(135deg,${c.ov},rgba(0,0,0,.05) 100%)"></div>
+      <div class="vcard-img-left" style="background:linear-gradient(180deg,${c.grad})"></div>
+      <div class="vcard-img-content">
+        <div class="vi-top">
+          <div class="vi-company">
+            <div class="vi-icon" style="background:linear-gradient(135deg,${c.grad})">${c.emoji}</div>
+            <div class="vi-name">${c.company}</div>
+          </div>
+          <div class="vi-badge">${c.round}</div>
+        </div>
+        <div>
+          <div class="vi-amount" style="background:linear-gradient(90deg,${c.grad});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">
+            ${c.stat} <span style="-webkit-text-fill-color:rgba(255,255,255,0.65);color:rgba(255,255,255,0.65);font-size:26px">${c.statLabel}</span>
+          </div>
+          <div class="vi-headline">${c.headline}</div>
+        </div>
+        <div class="vi-bot">${c.detail}</div>
+      </div>
+    </div>
+    <div class="vcard-body">
+      <div class="vcard-meta">
+        <span class="vcard-sector" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.color}">${TYPE_LABEL[c.type]}</span>
+        <span class="vcard-time">🕐 ${c.time}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderFeed() {
+  filteredCards = CARDS.filter(c => {
+    // Type filter
+    if (activeFilter !== 'all') {
+      if (['funding','expansion','hiring'].includes(activeFilter) && c.type !== activeFilter) return false;
+      if (activeFilter === 'others' && ['funding','expansion','hiring'].includes(c.type)) return false;
+    }
+    // City filter
+    if (activeCity !== 'all') {
+      const cardCity = (c.city || '').toLowerCase();
+      const filterCity = activeCity.toLowerCase();
+      if (!cardCity.includes(filterCity)) return false;
+    }
+    // Search filter
+    if (activeSearch) {
+      const searchable = `${c.company} ${c.sector} ${c.city} ${c.headline} ${c.detail}`.toLowerCase();
+      if (!searchable.includes(activeSearch)) return false;
+    }
+    return true;
+  });
+  document.getElementById('feedGrid').innerHTML = filteredCards.map((c,i) => buildCard(c,i)).join('');
+  document.getElementById('feedCount').textContent = `${filteredCards.length} signal${filteredCards.length !== 1?'s':''} today`;
+  updateTickerAndLogoWall();
+}
+
+function updateTickerAndLogoWall() {
+  const src = CARDS.length > 0 ? CARDS : [];
+  if (src.length === 0) return;
+
+  // Update ticker with live cards
+  const typeIcon = { funding:'💰', expansion:'🌏', hiring:'👥', others:'✨' };
+  const tickerItems = [...src, ...src].map(c =>
+    `<span class="ticker-item"><strong>${c.company}</strong> · ${typeIcon[c.type]||'✨'} ${c.type.charAt(0).toUpperCase()+c.type.slice(1)} · ${c.sector||'India'} <span class="ticker-sep">|</span></span>`
+  ).join('');
+  const ti = document.getElementById('tickerInner');
+  if (ti) ti.innerHTML = tickerItems;
+
+  // Update logo wall with unique companies
+  const seen = new Set();
+  const pills = src.filter(c => {
+    if (seen.has(c.company)) return false;
+    seen.add(c.company);
+    return true;
+  }).slice(0, 16).map(c => {
+    const tc = TYPE_COLORS[c.type] || TYPE_COLORS['others'];
+    return `<div class="logo-pill">
+      <span class="logo-pill-emoji">${c.emoji||'🏢'}</span>
+      <span>${c.company}</span>
+      <span class="logo-pill-type" style="background:${tc.bg};color:${tc.color};border:1px solid ${tc.border}">${typeIcon[c.type]||'✨'}</span>
+    </div>`;
+  }).join('');
+  const lw = document.getElementById('logoWall');
+  if (lw && pills) lw.innerHTML = pills;
+}
+
+function setFilter(btn, f) {
+  activeFilter = f;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+// ══ LIVE DATA FROM SUPABASE ══
+const SUPA_URL = "https://esiveliffwfopavtfpmo.supabase.co";
+const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzaXZlbGlmZndmb3BhdnRmcG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MzgzOTMsImV4cCI6MjA4ODAxNDM5M30.AVYtkUURd17-oEOETUFrTqb5vq9kIiYQ9IQcERogte4";
+
+async function loadLiveCards() {
+  // Show demo cards immediately so page never looks empty
+  renderFeed();
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch(`${SUPA_URL}/rest/v1/cards?select=*&order=posted_at.desc&limit=50`, {
+      headers: { "apikey": SUPA_KEY, "Authorization": `Bearer ${SUPA_KEY}` },
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    const data = await res.json();
+    if (data && Array.isArray(data) && data.length > 0) {
+      CARDS.length = 0;
+      data.forEach(row => {
+        CARDS.push({
+          type:      ['funding','expansion','hiring'].includes(row.type) ? row.type : 'others',
+          company:   row.company || '',
+          emoji:     row.emoji || '🏢',
+          sector:    row.sector || 'Other',
+          sc:        row.bar_color || '#10b981',
+          round:     row.type ? row.type.charAt(0).toUpperCase() + row.type.slice(1) : 'Signal',
+          stat:      row.company || '',
+          statLabel: '',
+          headline:  row.headline || '',
+          detail:    row.detail || '',
+          time:      timeAgo(row.posted_at),
+          bg:        getBg(row.sector),
+          grad:      getGrad(row.type),
+          city:      row.city || '',
+          ov:        "rgba(0,0,0,0.88)",
+          source_url: row.source_url || ''
+        });
+      });
+      console.log('Live cards loaded:', CARDS.length);
+      // Replace demo cards with live cards
+      renderFeed();
+    } else {
+      console.log('No data from Supabase or empty array:', data);
+    }
+  } catch(e) {
+    console.log('Supabase error:', e.message);
+  }
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return 'recently';
+  const diff = (Date.now() - new Date(dateStr)) / 1000;
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  return Math.floor(diff/86400) + 'd ago';
+}
+
+function getBg(sector) {
+  const map = {
+    'FinTech':'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=70',
+    'HealthTech':'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&q=70',
+    'EdTech':'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=70',
+    'EV':'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=70',
+    'AI':'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=70',
+    'AgriTech':'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=70',
+  };
+  return map[sector] || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=70';
+}
+
+function getGrad(type) {
+  const map = {
+    'funding':'#00e5b4,#0064ff',
+    'expansion':'#fb923c,#f43f5e',
+    'hiring':'#facc15,#f97316'
+  };
+  return map[type] || '#00e5b4,#0064ff';
+}
+
+// Load live data on startup
+loadLiveCards();
+
+// ══ PAGE NAVIGATION ══
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById(p === 'home' ? 'pageHome' : 'pageAbout').classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(p === 'home' ? 'navHome' : 'navAbout').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══ MODAL LOGIC ══
+let activeCity = 'all';
+let activeSearch = '';
+
+function openCard(i) {
+  const c = filteredCards[i];
+  const tc = TYPE_COLORS[c.type] || TYPE_COLORS['others'];
+  document.getElementById('mIcon').style.background = `linear-gradient(135deg,${c.grad})`;
+  document.getElementById('mIcon').textContent = c.emoji;
+  document.getElementById('mCo').textContent = c.company;
+  document.getElementById('mDetail').textContent = c.sector || '';
+
+  // Enhanced modal info
+  const typeTag = document.getElementById('mTypeTag');
+  typeTag.textContent = TYPE_LABEL[c.type] || '✨ Others';
+  typeTag.style.background = tc.bg;
+  typeTag.style.border = `1px solid ${tc.border}`;
+  typeTag.style.color = tc.color;
+
+  document.getElementById('mSectorTag').textContent = c.sector || '';
+  document.getElementById('mHeadline').textContent = c.headline || '';
+  document.getElementById('mDetailFull').textContent = c.detail || '';
+  // Why it matters line
+  const whyMap = {
+    funding: '📈 Fresh capital means new vendors, office space, team expansion & services — all up for grabs.',
+    expansion: '🗺️ New market entry means new supplier relationships, facilities, staff & local service providers needed.',
+    hiring: '👔 Rapid hiring signals budget approval & headcount growth — perfect timing to reach the decision maker.',
+    others: '🔍 A market move is underway — the window to reach them first is narrow.'
+  };
+  document.getElementById('mWhyMatters').textContent = whyMap[c.type] || whyMap['others'];
+  document.getElementById('mHook').textContent = '🔒 Get daily business insights, expert analysis & direct outreach support — contact us to get daily business insights for your company\'s growth →';
+
+  const cityEl = document.getElementById('mCity');
+  cityEl.innerHTML = c.city ? `📍 <span>${c.city}</span>` : '';
+
+  const timeEl = document.getElementById('mTime');
+  timeEl.innerHTML = c.time ? `🕐 <span>${c.time}</span>` : '';
+
+  const srcEl = document.getElementById('mSource');
+  if (c.source_url) {
+    srcEl.innerHTML = `<a href="${c.source_url}" target="_blank" rel="noopener">📰 Read full article →</a>`;
+  } else {
+    srcEl.innerHTML = '';
+  }
+
+  const o = document.getElementById('overlay');
+  o.style.display = 'flex';
+  requestAnimationFrame(() => o.classList.add('open'));
+}
+
+function setCity(btn, city) {
+  activeCity = city;
+  document.querySelectorAll('.cb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  activeSearch = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  renderFeed();
+}
+
+function openContact() {
+  document.getElementById('overlay').className = 'overlay contact-open open';
+}
+
+function openConnected() {
+  document.getElementById('overlay').className = 'overlay connected-open open';
+}
+
+function openConnectedDirect() {
+  const o = document.getElementById('overlay');
+  o.style.display = 'flex';
+  requestAnimationFrame(() => o.className = 'overlay connected-open open');
+}
+
+function closeAll() {
+  const o = document.getElementById('overlay');
+  o.className = 'overlay';
+  setTimeout(() => { o.style.display = ''; }, 380);
+  // reset forms
+  ['contactForm','connectedForm'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display = ''; });
+  ['contactSuccess','connectedSuccess'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display = 'none'; });
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('overlay')) closeAll();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+// ══ FORM SUBMISSIONS ══
+// 6. HOW TO RECEIVE ENQUIRIES:
+//    Option A (free): Replace YOUR_FORMSPREE_ID below with your Formspree endpoint
+//                     Sign up at formspree.io → create form → copy the ID
+//    Option B: Replace with your own API endpoint / Google Apps Script URL
+//    Option C: Use EmailJS (emailjs.com) — sends directly to your Gmail
+
+const FORM_ENDPOINT = "https://formspree.io/f/xnjbkrrg"; // ← replace this
+
+async function submitContact() {
+  const phone = document.getElementById('c_phone').value.trim();
+  if (!phone) { alert('Contact number is mandatory. Please enter your phone number.'); return; }
+
+  const data = {
+    name:    document.getElementById('c_name').value,
+    company: document.getElementById('c_company').value,
+    phone:   phone,
+    remarks: document.getElementById('c_remarks').value,
+    type:    'Contact Us (Card Click)',
+    _subject: `New Enquiry — Clever Moguls`
+  };
+
+  await sendForm(data);
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('contactSuccess').style.display = 'block';
+}
+
+async function submitConnected() {
+  const phone = document.getElementById('g_phone').value.trim();
+  if (!phone) { alert('Contact number is mandatory. Please enter your phone number.'); return; }
+
+  const data = {
+    name:        document.getElementById('g_name').value,
+    company:     document.getElementById('g_company').value,
+    designation: document.getElementById('g_desig').value,
+    email:       document.getElementById('g_email').value,
+    phone:       phone,
+    message:     document.getElementById('g_more').value,
+    type:        'Get Connected',
+    _subject:    `Get Connected Enquiry — Clever Moguls`
+  };
+
+  await sendForm(data);
+  document.getElementById('connectedForm').style.display = 'none';
+  document.getElementById('connectedSuccess').style.display = 'block';
+}
+
+async function sendForm(data) {
+  try {
+    await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) {
+    // Even if fetch fails, show success to user — fallback
+    console.log('Form data:', data);
+  }
+}
+</script>
+</body>
+</html>
