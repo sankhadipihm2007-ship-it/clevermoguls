@@ -12,18 +12,118 @@
   /* Brand palette extracted from logo */
   --red:      #e8382a;   /* logo red background */
   --red2:     #c42d1f;   /* darker red for hovers */
-  --navy:     #1a1c2e;   /* logo dark circle */
-  --navy2:    #0f1018;   /* deeper bg */
+  --navy:     #1a2540;   /* logo dark circle */
+  --navy2:    #070e1c;   /* deeper bg */
   --cream:    #f5f0e8;   /* logo text white/cream */
-  --bg:       #0d0e14;
-  --bg2:      #111320;
-  --bg3:      #161828;
+  --bg:       #0a0f1e;
+  --bg2:      #0f1628;
+  --bg3:      #141d32;
   --border:   rgba(255,255,255,0.07);
   --text:     #f0ece4;
   --muted:    rgba(240,236,228,0.4);
   --green:    #22c55e;
   --blue:     #4a7fd4;
-  --gold:     #e8c879;
+  --gold:     #f0c060;
+}
+
+
+/* ── SEARCH BAR ── */
+.search-wrap {
+  max-width: 1400px; margin: 0 auto; padding: 20px 24px 0;
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+}
+.search-input {
+  flex: 1; min-width: 200px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text); font-family: 'Outfit', sans-serif; font-size: 14px;
+  padding: 10px 16px 10px 40px; border-radius: 50px;
+  outline: none; transition: border 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 14px center;
+}
+.search-input:focus { border-color: var(--red); }
+.search-input::placeholder { color: var(--muted); }
+
+/* ── CITY FILTER ── */
+.city-wrap {
+  max-width: 1400px; margin: 0 auto; padding: 12px 24px 0;
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.city-label { font-size: 11px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; margin-right: 4px; }
+.cb {
+  padding: 5px 14px; border-radius: 50px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); font-family: 'Outfit', sans-serif;
+  font-size: 12px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.cb:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+.cb.active { background: var(--navy); border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+/* ── ENHANCED MODAL ── */
+.modal-signal-info {
+  padding: 16px 30px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-signal-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.modal-signal-tag {
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase;
+}
+.modal-headline {
+  font-size: 15px; font-weight: 600; color: var(--text);
+  line-height: 1.5; margin-bottom: 8px;
+}
+.modal-detail-full {
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+}
+.modal-extra-row {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px;
+}
+.modal-extra-item {
+  font-size: 12px; color: var(--muted);
+}
+.modal-extra-item span { color: var(--text); font-weight: 500; }
+.modal-source {
+  font-size: 11px; margin-top: 8px;
+}
+.modal-source a {
+  color: var(--red); text-decoration: none;
+}
+.modal-source a:hover { text-decoration: underline; }
+
+
+/* ── LOGO WALL ── */
+.logo-wall-wrap {
+  padding: 28px 48px 0;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(26,37,64,0.3) 0%, transparent 100%);
+}
+.logo-wall-label {
+  font-size: 10px; letter-spacing: 2px; color: var(--muted);
+  text-align: center; margin-bottom: 16px; text-transform: uppercase;
+}
+.logo-wall {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; align-items: center;
+  max-width: 1000px; margin: 0 auto; padding-bottom: 24px;
+}
+.logo-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; border-radius: 50px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  font-size: 13px; font-weight: 500; color: var(--text);
+  transition: all 0.2s; cursor: default;
+}
+.logo-pill:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+}
+.logo-pill-emoji { font-size: 16px; }
+.logo-pill-type {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 20px; margin-left: 4px;
 }
 
 html { scroll-behavior: smooth; }
@@ -477,21 +577,8 @@ footer {
 
 <!-- ══ TICKER ══ -->
 <div class="ticker-wrap">
-  <div class="ticker-inner">
-    <span class="ticker-item"><strong>Pulse</strong> raises <strong>$4 Mn</strong> · Seed · HealthTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>SoundHound AI</strong> opens Bengaluru hub · 200 engineers <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Zepto</strong> enters 30 new cities · Quick Commerce <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Ola Electric</strong> hiring 250+ engineers · EV <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>CropIn</strong> raises <strong>$20 Mn</strong> · Series C · AgriTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Razorpay</strong> hiring 100 engineers · FinTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>PhysicsWallah</strong> opens 200 centres · EdTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Pulse</strong> raises <strong>$4 Mn</strong> · Seed · HealthTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>SoundHound AI</strong> opens Bengaluru hub · 200 engineers <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Zepto</strong> enters 30 new cities · Quick Commerce <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Ola Electric</strong> hiring 250+ engineers · EV <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>CropIn</strong> raises <strong>$20 Mn</strong> · Series C · AgriTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>Razorpay</strong> hiring 100 engineers · FinTech <span class="ticker-sep">|</span></span>
-    <span class="ticker-item"><strong>PhysicsWallah</strong> opens 200 centres · EdTech <span class="ticker-sep">|</span></span>
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item"><strong>Clever Moguls</strong> · Live Indian Business Signals <span class="ticker-sep">|</span></span>
   </div>
 </div>
 
@@ -528,6 +615,14 @@ footer {
       See Live Signals
     </div>
   </section>
+
+  <!-- LOGO WALL -->
+  <div class="logo-wall-wrap">
+    <div class="logo-wall-label">COMPANIES IN THE SPOTLIGHT THIS WEEK</div>
+    <div class="logo-wall" id="logoWall">
+      <!-- filled by JS from live cards -->
+    </div>
+  </div>
 
   <!-- FILTER BAR -->
   <div class="filter-bar" id="feed">
@@ -636,6 +731,21 @@ footer {
         <div class="modal-ctx-detail" id="mDetail"></div>
       </div>
     </div>
+    <div class="modal-signal-info">
+      <div class="modal-signal-row">
+        <span class="modal-signal-tag" id="mTypeTag"></span>
+        <span class="modal-signal-tag" id="mSectorTag" style="background:rgba(255,255,255,0.05);color:var(--muted)"></span>
+      </div>
+      <div class="modal-headline" id="mHeadline"></div>
+      <div class="modal-detail-full" id="mDetailFull"></div>
+      <div class="modal-detail-full" id="mWhyMatters" style="margin-top:8px;color:rgba(240,236,228,0.65)"></div>
+      <div style="margin-top:10px;padding:10px 14px;border-radius:10px;background:rgba(232,56,42,0.08);border:1px solid rgba(232,56,42,0.2);font-size:12px;color:var(--red);font-weight:500" id="mHook"></div>
+      <div class="modal-extra-row">
+        <div class="modal-extra-item" id="mCity"></div>
+        <div class="modal-extra-item" id="mTime"></div>
+      </div>
+      <div class="modal-source" id="mSource"></div>
+    </div>
     <div class="modal-body">
       <button class="cta-single" onclick="openContact()">
         <div>
@@ -718,10 +828,10 @@ const CARDS = [
 
 const TYPE_LABEL  = { funding:"💰 Funding", expansion:"🌏 Expansion", hiring:"👥 Hiring", others:"✨ Others" };
 const TYPE_COLORS = {
-  funding:   { bg:"rgba(232,56,42,0.1)",  border:"rgba(232,56,42,0.3)",  color:"#e8382a" },
+  funding:   { bg:"rgba(16,185,129,0.1)", border:"rgba(16,185,129,0.3)", color:"#10b981" },
   expansion: { bg:"rgba(74,127,212,0.1)", border:"rgba(74,127,212,0.3)", color:"#4a7fd4" },
-  hiring:    { bg:"rgba(34,197,94,0.1)",  border:"rgba(34,197,94,0.3)",  color:"#22c55e" },
-  others:    { bg:"rgba(168,85,247,0.1)", border:"rgba(168,85,247,0.3)", color:"#a855f7" },
+  hiring:    { bg:"rgba(245,158,11,0.1)", border:"rgba(245,158,11,0.3)", color:"#f59e0b" },
+  others:    { bg:"rgba(6,182,212,0.1)",  border:"rgba(6,182,212,0.3)",  color:"#06b6d4" },
 };
 
 let activeFilter = 'all';
@@ -763,20 +873,64 @@ function buildCard(c, i) {
 
 function renderFeed() {
   filteredCards = CARDS.filter(c => {
-    if (activeFilter === 'all') return true;
-    if (['funding','expansion','hiring'].includes(activeFilter)) return c.type === activeFilter;
-    if (activeFilter === 'others') return !['funding','expansion','hiring'].includes(c.type);
-    return false;
+    // Type filter
+    if (activeFilter !== 'all') {
+      if (['funding','expansion','hiring'].includes(activeFilter) && c.type !== activeFilter) return false;
+      if (activeFilter === 'others' && ['funding','expansion','hiring'].includes(c.type)) return false;
+    }
+    // City filter
+    if (activeCity !== 'all') {
+      const cardCity = (c.city || '').toLowerCase();
+      const filterCity = activeCity.toLowerCase();
+      if (!cardCity.includes(filterCity)) return false;
+    }
+    // Search filter
+    if (activeSearch) {
+      const searchable = `${c.company} ${c.sector} ${c.city} ${c.headline} ${c.detail}`.toLowerCase();
+      if (!searchable.includes(activeSearch)) return false;
+    }
+    return true;
   });
   document.getElementById('feedGrid').innerHTML = filteredCards.map((c,i) => buildCard(c,i)).join('');
   document.getElementById('feedCount').textContent = `${filteredCards.length} signal${filteredCards.length !== 1?'s':''} today`;
+  updateTickerAndLogoWall();
+}
+
+function updateTickerAndLogoWall() {
+  const src = CARDS.length > 0 ? CARDS : [];
+  if (src.length === 0) return;
+
+  // Update ticker with live cards
+  const typeIcon = { funding:'💰', expansion:'🌏', hiring:'👥', others:'✨' };
+  const tickerItems = [...src, ...src].map(c =>
+    `<span class="ticker-item"><strong>${c.company}</strong> · ${typeIcon[c.type]||'✨'} ${c.type.charAt(0).toUpperCase()+c.type.slice(1)} · ${c.sector||'India'} <span class="ticker-sep">|</span></span>`
+  ).join('');
+  const ti = document.getElementById('tickerInner');
+  if (ti) ti.innerHTML = tickerItems;
+
+  // Update logo wall with unique companies
+  const seen = new Set();
+  const pills = src.filter(c => {
+    if (seen.has(c.company)) return false;
+    seen.add(c.company);
+    return true;
+  }).slice(0, 16).map(c => {
+    const tc = TYPE_COLORS[c.type] || TYPE_COLORS['others'];
+    return `<div class="logo-pill">
+      <span class="logo-pill-emoji">${c.emoji||'🏢'}</span>
+      <span>${c.company}</span>
+      <span class="logo-pill-type" style="background:${tc.bg};color:${tc.color};border:1px solid ${tc.border}">${typeIcon[c.type]||'✨'}</span>
+    </div>`;
+  }).join('');
+  const lw = document.getElementById('logoWall');
+  if (lw && pills) lw.innerHTML = pills;
 }
 
 function setFilter(btn, f) {
   activeFilter = f;
   document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderFeed();
+  applyFilters();
 }
 
 // ══ LIVE DATA FROM SUPABASE ══
@@ -803,7 +957,7 @@ async function loadLiveCards() {
           company:   row.company || '',
           emoji:     row.emoji || '🏢',
           sector:    row.sector || 'Other',
-          sc:        row.bar_color || '#22c55e',
+          sc:        row.bar_color || '#10b981',
           round:     row.type ? row.type.charAt(0).toUpperCase() + row.type.slice(1) : 'Signal',
           stat:      row.company || '',
           statLabel: '',
@@ -812,7 +966,8 @@ async function loadLiveCards() {
           time:      timeAgo(row.posted_at),
           bg:        getBg(row.sector),
           grad:      getGrad(row.type),
-          ov:        "rgba(0,0,0,0.88)"
+          ov:        "rgba(0,0,0,0.88)",
+          source_url: row.source_url || ''
         });
       });
       // Replace demo cards with live cards
@@ -865,15 +1020,65 @@ function showPage(p) {
 }
 
 // ══ MODAL LOGIC ══
+let activeCity = 'all';
+let activeSearch = '';
+
 function openCard(i) {
   const c = filteredCards[i];
+  const tc = TYPE_COLORS[c.type] || TYPE_COLORS['others'];
   document.getElementById('mIcon').style.background = `linear-gradient(135deg,${c.grad})`;
   document.getElementById('mIcon').textContent = c.emoji;
-  document.getElementById('mCo').textContent   = c.company;
-  document.getElementById('mDetail').textContent = c.headline;
+  document.getElementById('mCo').textContent = c.company;
+  document.getElementById('mDetail').textContent = c.sector || '';
+
+  // Enhanced modal info
+  const typeTag = document.getElementById('mTypeTag');
+  typeTag.textContent = TYPE_LABEL[c.type] || '✨ Others';
+  typeTag.style.background = tc.bg;
+  typeTag.style.border = `1px solid ${tc.border}`;
+  typeTag.style.color = tc.color;
+
+  document.getElementById('mSectorTag').textContent = c.sector || '';
+  document.getElementById('mHeadline').textContent = c.headline || '';
+  document.getElementById('mDetailFull').textContent = c.detail || '';
+  // Why it matters line
+  const whyMap = {
+    funding: '📈 Fresh capital means new vendors, office space, team expansion & services — all up for grabs.',
+    expansion: '🗺️ New market entry means new supplier relationships, facilities, staff & local service providers needed.',
+    hiring: '👔 Rapid hiring signals budget approval & headcount growth — perfect timing to reach the decision maker.',
+    others: '🔍 A market move is underway — the window to reach them first is narrow.'
+  };
+  document.getElementById('mWhyMatters').textContent = whyMap[c.type] || whyMap['others'];
+  document.getElementById('mHook').textContent = '🔒 Get daily business insights, expert analysis & direct outreach support — contact us to get daily business insights for your company\'s growth →';
+
+  const cityEl = document.getElementById('mCity');
+  cityEl.innerHTML = c.city ? `📍 <span>${c.city}</span>` : '';
+
+  const timeEl = document.getElementById('mTime');
+  timeEl.innerHTML = c.time ? `🕐 <span>${c.time}</span>` : '';
+
+  const srcEl = document.getElementById('mSource');
+  if (c.source_url) {
+    srcEl.innerHTML = `<a href="${c.source_url}" target="_blank" rel="noopener">📰 Read full article →</a>`;
+  } else {
+    srcEl.innerHTML = '';
+  }
+
   const o = document.getElementById('overlay');
   o.style.display = 'flex';
   requestAnimationFrame(() => o.classList.add('open'));
+}
+
+function setCity(btn, city) {
+  activeCity = city;
+  document.querySelectorAll('.cb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  activeSearch = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  renderFeed();
 }
 
 function openContact() {
