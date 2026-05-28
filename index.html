@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clever Moguls — Be The Change, Bengaluru</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700;1,9..144,900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D4001A;
+    --dark-red: #A80015;
+    --light-red: #FF1F38;
+    --white: #FFFFFF;
+    --off-white: #FDFAF8;
+    --charcoal: #3D2B2B;
+    --mid: #705858;
+    --grain: none;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--off-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--white);
+    color: var(--charcoal);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero::before { display: none; }
+
+  .red-stripe {
+    background: var(--red);
+    height: 5px;
+    width: 100%;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--charcoal);
+  }
+  .logo span { color: var(--red); }
+
+  .nav-tag {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(61,43,43,0.45);
+  }
+
+  .hero-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px 60px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .emergency-band {
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 36px;
+    border-radius: 60px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    animation: pulse-red 2s ease-in-out infinite;
+    transition: transform 0.2s;
+    border: none;
+  }
+  .emergency-band:hover { transform: scale(1.05); }
+  .emergency-band .dot {
+    width: 10px; height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    animation: blink 1s ease-in-out infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  @keyframes pulse-red {
+    0%,100% { box-shadow: 0 0 0 0 rgba(204,0,0,0.5); }
+    50% { box-shadow: 0 0 0 16px rgba(204,0,0,0); }
+  }
+
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(56px, 9vw, 120px);
+    line-height: 0.92;
+    letter-spacing: -2px;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+  .hero-headline .red { color: var(--red); }
+  .hero-headline .italic {
+    font-style: italic;
+    font-weight: 900;
+    color: var(--red);
+  }
+
+  .hero-sub {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--mid);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 50px;
+  }
+
+  .scroll-hint {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(61,43,43,0.3);
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ── MANIFESTO STRIP ── */
+  .manifesto {
+    background: var(--red);
+    color: var(--white);
+    padding: 20px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .manifesto-track {
+    display: inline-flex;
+    gap: 60px;
+    animation: scroll-left 20s linear infinite;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 4px;
+  }
+  @keyframes scroll-left { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* ── REPORT SECTION ── */
+  .report-section {
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5.5vw, 66px);
+    line-height: 1.02;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    color: #8a6a6a;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .report-card {
+    background: var(--white);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 36px 30px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 4px;
+    width: 0;
+    background: var(--red);
+    transition: width 0.3s ease;
+  }
+  .report-card:hover::before { width: 100%; }
+  .report-card:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(204,0,0,0.12);
+  }
+
+  .card-icon {
+    font-size: 48px;
+    margin-bottom: 14px;
+    display: block;
+    line-height: 1;
+  }
+
+  .card-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: #9a7a7a;
+    line-height: 1.6;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--red);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modal-in 0.3s ease;
+  }
+  @keyframes modal-in {
+    from { transform: translateY(30px) scale(0.96); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  .modal-header {
+    background: var(--white);
+    color: var(--charcoal);
+    padding: 28px 30px 22px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-header-left {}
+  .modal-icon { font-size: 42px; margin-bottom: 8px; }
+  .modal-title {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .modal-subtitle { font-size: 13px; color: rgba(61,43,43,0.45); margin-top: 4px; }
+
+  .modal-close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: var(--white);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .modal-close:hover { background: var(--red); }
+
+  .modal-body { padding: 28px 30px; }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1.5px solid #f0eaea;
+    background: #fefcfc;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: all 0.2s;
+    text-align: left;
+  }
+  .action-btn:hover {
+    border-color: var(--red);
+    background: #fff5f5;
+    transform: translateX(4px);
+  }
+  .action-btn:last-child { margin-bottom: 0; }
+
+  .btn-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .btn-icon.red { background: #fff0f0; }
+  .btn-icon.green { background: #f0fff4; }
+  .btn-icon.blue { background: #f0f4ff; }
+  .btn-icon.black { background: #f5f5f5; }
+  .btn-icon.orange { background: #fff8f0; }
+
+  .btn-text {}
+  .btn-label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .btn-meta {
+    font-size: 12px;
+    color: #a08888;
+  }
+
+  .section-divider {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #aaa;
+    text-transform: uppercase;
+    margin: 20px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0e8e8;
+  }
+
+  /* Emergency calls */
+  .call-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .call-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px;
+    border-radius: 12px;
+    border: 1.5px solid #f0eaea;
+    background: #fefcfc;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .call-btn:hover {
+    border-color: var(--red);
+    background: #fff5f5;
+  }
+  .call-number {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--red);
+    letter-spacing: 0px;
+  }
+  .call-name {
+    font-size: 11px;
+    color: #9a7a7a;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .call-icon { font-size: 20px; margin-bottom: 4px; }
+
+  /* PDF buttons */
+  .pdf-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1.5px solid #f0eaea;
+    background: #fefcfc;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: all 0.2s;
+  }
+  .pdf-btn:hover {
+    border-color: var(--dark-red);
+    background: #fff5f5;
+  }
+  .pdf-icon {
+    width: 44px; height: 44px;
+    background: #fff0f0;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .pdf-label { font-weight: 600; font-size: 14px; }
+  .pdf-meta { font-size: 12px; color: #888; margin-top: 2px; }
+
+  /* ── QUOTE SECTION ── */
+  .quote-section {
+    background: var(--red);
+    color: var(--white);
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-section::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 400px;
+    position: absolute;
+    top: -80px; left: 20px;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .quote-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(24px, 4vw, 48px);
+    max-width: 800px;
+    margin: 0 auto 20px;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-attr {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    letter-spacing: 3px;
+    font-size: 14px;
+    opacity: 0.7;
+    position: relative; z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1f0a0a;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 13px;
+  }
+  footer .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  footer .footer-logo span { color: var(--red); }
+  footer p { margin-top: 8px; line-height: 1.8; }
+
+  /* Emergency modal special */
+  .emergency-modal .modal-header { background: #6B0010; }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .nav { padding: 16px 20px; }
+    .report-section { padding: 60px 20px; }
+    .modal-body { padding: 20px; }
+    .call-grid { grid-template-columns: 1fr 1fr; }
+    .hero-body { padding: 30px 20px 50px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+<section class="hero">
+  <div class="red-stripe"></div>
+  <nav class="nav">
+    <div class="logo">Clever<span>Moguls</span></div>
+    <div class="nav-tag">Bengaluru Citizens' Action Hub</div>
+  </nav>
+  <div class="hero-body">
+    <!-- Emergency Button pinned at top -->
+    <button class="emergency-band" onclick="openModal('emergency')">
+      <div class="dot"></div>
+      🚨 EMERGENCY? TAP HERE FIRST
+    </button>
+
+    <h1 class="hero-headline">
+      BE THE<br>
+      <span class="italic">CHANGE</span><br>
+      <span class="red">BENGALURU</span>
+    </h1>
+    <p class="hero-sub">
+      One city. Eight million voices. Every broken road, every bribe demanded, every garbage pile left rotting — it exists because we look away. <strong style="color:#fff">Not anymore.</strong> We are Clever Moguls — and we act.
+    </p>
+    <div class="scroll-hint">▼ &nbsp; CHOOSE YOUR ACTION &nbsp; ▼</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SCROLLING STRIP ═══════════════════════════ -->
+<div class="manifesto">
+  <div class="manifesto-track">
+    <span>REPORT IT</span>
+    <span>✊</span>
+    <span>ACT NOW</span>
+    <span>✊</span>
+    <span>SPEAK UP</span>
+    <span>✊</span>
+    <span>NO MORE SILENCE</span>
+    <span>✊</span>
+    <span>YOUR CITY YOUR VOICE</span>
+    <span>✊</span>
+    <span>REPORT IT</span>
+    <span>✊</span>
+    <span>ACT NOW</span>
+    <span>✊</span>
+    <span>SPEAK UP</span>
+    <span>✊</span>
+    <span>NO MORE SILENCE</span>
+    <span>✊</span>
+    <span>YOUR CITY YOUR VOICE</span>
+    <span>✊</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ REPORT CARDS ═══════════════════════════════ -->
+<section class="report-section">
+  <p class="section-label">// Citizens' Action Board</p>
+  <h2 class="section-title">WHAT DO YOU WANT<br>TO REPORT?</h2>
+  <p class="section-desc">
+    Don't complain at a chai stall. Take 60 seconds and make it official. Every report filed is a vote for the Bengaluru we deserve.
+  </p>
+
+  <div class="cards-grid">
+
+    <!-- Card 1: Potholes -->
+    <div class="report-card" onclick="openModal('pothole')">
+      <span class="card-icon">🕳️</span>
+      <div class="card-number">01 / 05</div>
+      <div class="card-title">Potholes</div>
+      <p class="card-desc">Broken roads aren't accidents — they're negligence. Report every pothole. Make them fix it.</p>
+      <div class="card-cta">REPORT NOW →</div>
+    </div>
+
+    <!-- Card 2: Bribery -->
+    <div class="report-card" onclick="openModal('bribery')">
+      <span class="card-icon">🤑</span>
+      <div class="card-number">02 / 05</div>
+      <div class="card-title">Bribery</div>
+      <p class="card-desc">Someone asked you for a bribe? That's a crime. File a formal complaint with Karnataka Lokayukta.</p>
+      <div class="card-cta">FILE COMPLAINT →</div>
+    </div>
+
+    <!-- Card 3: Garbage -->
+    <div class="report-card" onclick="openModal('garbage')">
+      <span class="card-icon">🗑️</span>
+      <div class="card-number">03 / 05</div>
+      <div class="card-title">Garbage Dumping</div>
+      <p class="card-desc">Overflowing bins, illegal dumps, uncollected waste — report it to BBMP and make it public.</p>
+      <div class="card-cta">REPORT NOW →</div>
+    </div>
+
+    <!-- Card 4: Parking -->
+    <div class="report-card" onclick="openModal('parking')">
+      <span class="card-icon">🚗</span>
+      <div class="card-number">04 / 05</div>
+      <div class="card-title">Parking Violations</div>
+      <p class="card-desc">Triple-parked vehicles, footpath blockades, no-parking violations — use BTP ASTram to flag them instantly.</p>
+      <div class="card-cta">REPORT NOW →</div>
+    </div>
+
+    <!-- Card 5: Crime/Threat -->
+    <div class="report-card" onclick="openModal('emergency')" style="border:2px solid var(--red); background:#fff8f8;">
+      <span class="card-icon">🚨</span>
+      <div class="card-number">05 / 05</div>
+      <div class="card-title">Crime / Threat</div>
+      <p class="card-desc">Immediate danger, harassment, threat, or crime in progress — get help right now.</p>
+      <div class="card-cta" style="color:var(--dark-red);">EMERGENCY CONTACTS →</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ QUOTE ═══════════════════════════════════ -->
+<section class="quote-section">
+  <p class="quote-text">"In a democracy, the silence of the citizen is the corruption of the state."</p>
+  <p class="quote-attr">— Clever Moguls, Bengaluru</p>
+</section>
+
+<!-- ════════════════════════════════════ FOOTER ═════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">Clever<span>Moguls</span></div>
+  <p>A grassroots citizens' action initiative for Bengaluru.<br>
+  Not affiliated with any political party. Powered by civic rage and collective hope.<br>
+  <span style="color:rgba(255,255,255,0.25)">Be the change. Report. Repeat.</span></p>
+</footer>
+
+
+<!-- ══════════════════════════════════ MODALS ══════════════════════════════════ -->
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOnOverlay(event)">
+
+  <!-- ── POTHOLE MODAL ── -->
+  <div class="modal" id="modal-pothole" style="display:none">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-icon">🕳️</div>
+        <div class="modal-title">Report a Pothole</div>
+        <div class="modal-subtitle">Choose how you want to report</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="section-divider">Official Report</div>
+      <a class="action-btn" href="https://nammapothole.com/" target="_blank">
+        <div class="btn-icon red">🌐</div>
+        <div class="btn-text">
+          <span class="btn-label">Namma Pothole Portal</span>
+          <span class="btn-meta">nammapothole.com — fastest official route</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Report via WhatsApp</div>
+      <a class="action-btn" href="https://wa.me/919108420079" target="_blank">
+        <div class="btn-icon green">💬</div>
+        <div class="btn-text">
+          <span class="btn-label">WhatsApp Namma Pothole</span>
+          <span class="btn-meta">+91 91084 20079 — attach a photo for faster action</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Report via Email</div>
+      <a class="action-btn" href="mailto:nammapothole@gmail.com">
+        <div class="btn-icon blue">✉️</div>
+        <div class="btn-text">
+          <span class="btn-label">Email Report</span>
+          <span class="btn-meta">nammapothole@gmail.com</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Make It Public — Pressure Them</div>
+      <a class="action-btn" href="https://x.com/nammapothole" target="_blank">
+        <div class="btn-icon black">𝕏</div>
+        <div class="btn-text">
+          <span class="btn-label">Post on X (Twitter)</span>
+          <span class="btn-meta">Tag @nammapothole — shame breeds speed</span>
+        </div>
+      </a>
+      <a class="action-btn" href="https://instagram.com/nammapothole" target="_blank">
+        <div class="btn-icon orange">📸</div>
+        <div class="btn-text">
+          <span class="btn-label">Post on Instagram</span>
+          <span class="btn-meta">@nammapothole — reel it, real it</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── BRIBERY MODAL ── -->
+  <div class="modal" id="modal-bribery" style="display:none">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-icon">🤑</div>
+        <div class="modal-title">Report Bribery</div>
+        <div class="modal-subtitle">Karnataka Lokayukta — your legal weapon</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:#555;margin-bottom:20px;line-height:1.7;">
+        Demanding or accepting a bribe is a punishable offence under the Karnataka Lokayukta Act, 1984. File a formal complaint — it's free, it's your right, and it works. Download the forms below, fill them, get the affidavit notarised, and submit to the nearest Lokayukta office or mail directly to the Head Office, Bengaluru.
+      </p>
+
+      <div class="section-divider">Step 1 — Read the Guide</div>
+      <a class="pdf-btn" href="How_to_File_a_Complaint.pdf" target="_blank">
+        <div class="pdf-icon">📋</div>
+        <div>
+          <div class="pdf-label">How to File a Complaint</div>
+          <div class="pdf-meta">Start here — full procedure explained</div>
+        </div>
+      </a>
+
+      <div class="section-divider">Step 2 — Download the Forms</div>
+      <a class="pdf-btn" href="FORM_1___2.pdf" target="_blank">
+        <div class="pdf-icon">📄</div>
+        <div>
+          <div class="pdf-label">Form I & II — Complaint + Affidavit</div>
+          <div class="pdf-meta">The core complaint form you must submit</div>
+        </div>
+      </a>
+      <a class="pdf-btn" href="FORM_4.pdf" target="_blank">
+        <div class="pdf-icon">📄</div>
+        <div>
+          <div class="pdf-label">Form IV — Assets & Liabilities</div>
+          <div class="pdf-meta">Attach if reporting disproportionate assets</div>
+        </div>
+      </a>
+
+      <div class="section-divider">Step 3 — Submit</div>
+      <a class="action-btn" href="tel:08022255077">
+        <div class="btn-icon red">📞</div>
+        <div class="btn-text">
+          <span class="btn-label">Call Lokayukta Head Office</span>
+          <span class="btn-meta">080-2225 5077 / 080-2225 0278 — Bengaluru</span>
+        </div>
+      </a>
+      <div style="background:#fff8f0;border-radius:10px;padding:14px 16px;font-size:13px;color:#555;margin-top:8px;line-height:1.6;">
+        📍 <strong>Head Office:</strong> Karnataka Lokayukta, Dr. B.R. Ambedkar Veedhi, Multi-Storied Building, Bengaluru – 560 001
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GARBAGE MODAL ── -->
+  <div class="modal" id="modal-garbage" style="display:none">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-icon">🗑️</div>
+        <div class="modal-title">Report Garbage</div>
+        <div class="modal-subtitle">Make BBMP do its job</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="section-divider">Direct WhatsApp Reports</div>
+      <a class="action-btn" href="https://wa.me/919448197197" target="_blank">
+        <div class="btn-icon green">💬</div>
+        <div class="btn-text">
+          <span class="btn-label">Report via WhatsApp</span>
+          <span class="btn-meta">+91 94481 97197 — send photo + location</span>
+        </div>
+      </a>
+      <a class="action-btn" href="https://wa.me/919480685700" target="_blank">
+        <div class="btn-icon green">💬</div>
+        <div class="btn-text">
+          <span class="btn-label">BBMP WhatsApp Support</span>
+          <span class="btn-meta">94806 85700 — official BBMP channel</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Official Portal</div>
+      <a class="action-btn" href="https://support.bbmpgov.in/ehelpline/" target="_blank">
+        <div class="btn-icon blue">🌐</div>
+        <div class="btn-text">
+          <span class="btn-label">BBMP e-Helpline Portal</span>
+          <span class="btn-meta">support.bbmpgov.in — file a trackable complaint</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Call BBMP Helpline</div>
+      <a class="action-btn" href="tel:1533">
+        <div class="btn-icon red">📞</div>
+        <div class="btn-text">
+          <span class="btn-label">Call 1533 — BBMP Helpline</span>
+          <span class="btn-meta">Free call, available during working hours</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Make It Public on X</div>
+      <a class="action-btn" href="https://x.com/intent/post?text=Unacceptable%20garbage%20dumping%20in%20Bengaluru%20%40BBMPofficial%20%40BlrCityPolice%20%40DgpKarnataka%20%23Bengaluru%20%23CleverMoguls%20Please%20act%20immediately!" target="_blank">
+        <div class="btn-icon black">𝕏</div>
+        <div class="btn-text">
+          <span class="btn-label">Tweet @BBMPofficial + Police</span>
+          <span class="btn-meta">Tags: @BBMPofficial @BlrCityPolice @DgpKarnataka</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── PARKING MODAL ── -->
+  <div class="modal" id="modal-parking" style="display:none">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-icon">🚗</div>
+        <div class="modal-title">Parking Violations</div>
+        <div class="modal-subtitle">BTP ASTram — report in 60 seconds</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:#555;margin-bottom:20px;line-height:1.7;">
+        The BTP ASTram app lets you report illegal parking violations directly to Bengaluru Traffic Police. Snap a photo, pin the location, submit. They act.
+      </p>
+
+      <div class="section-divider">Download BTP ASTram App</div>
+      <a class="action-btn" href="https://play.google.com/store/apps/details?id=com.BTPASTraM&hl=en_IN" target="_blank">
+        <div class="btn-icon green">🤖</div>
+        <div class="btn-text">
+          <span class="btn-label">Android — Google Play Store</span>
+          <span class="btn-meta">BTP ASTram — Bengaluru Traffic Police</span>
+        </div>
+      </a>
+      <a class="action-btn" href="https://apps.apple.com/in/app/btp-astram/id6736525283" target="_blank">
+        <div class="btn-icon black">🍎</div>
+        <div class="btn-text">
+          <span class="btn-label">iPhone — Apple App Store</span>
+          <span class="btn-meta">BTP ASTram — id6736525283</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Make It Public on X</div>
+      <a class="action-btn" href="https://x.com/intent/post?text=Illegal%20parking%20blocking%20traffic%20in%20Bengaluru%20%40blrcitytraffic%20%40CPBlr%20%23TrafficViolation%20%23Bengaluru%20%23CleverMoguls" target="_blank">
+        <div class="btn-icon black">𝕏</div>
+        <div class="btn-text">
+          <span class="btn-label">Tweet the Violation</span>
+          <span class="btn-meta">Tags: @blrcitytraffic @CPBlr — public shame works</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── EMERGENCY MODAL ── -->
+  <div class="modal emergency-modal" id="modal-emergency" style="display:none">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-icon">🚨</div>
+        <div class="modal-title">Emergency Contacts</div>
+        <div class="modal-subtitle">Bengaluru — call immediately, don't wait</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:#c00;font-weight:700;margin-bottom:16px;">
+        If you are in immediate danger, call 112 right now.
+      </p>
+
+      <div class="section-divider">⚡ All-in-One Emergency</div>
+      <a class="action-btn" href="tel:112" style="border-color:var(--red);background:#fff0f0;">
+        <div class="btn-icon red" style="background:var(--red);">
+          <span style="color:#fff;font-size:20px;">📞</span>
+        </div>
+        <div class="btn-text">
+          <span class="btn-label" style="font-size:20px;color:var(--red);">112 — All-in-One Emergency</span>
+          <span class="btn-meta">Police + Ambulance + Fire — one call</span>
+        </div>
+      </a>
+
+      <div class="section-divider">Police</div>
+      <div class="call-grid">
+        <a class="call-btn" href="tel:100">
+          <div class="call-icon">🚔</div>
+          <div class="call-number">100</div>
+          <div class="call-name">Police Control Room</div>
+        </a>
+        <a class="call-btn" href="tel:103">
+          <div class="call-icon">🚁</div>
+          <div class="call-number">103</div>
+          <div class="call-name">Hoysala Patrol</div>
+        </a>
+        <a class="call-btn" href="tel:08022943225">
+          <div class="call-icon">🏙️</div>
+          <div class="call-number" style="font-size:16px;">080-2294 3225</div>
+          <div class="call-name">Bengaluru Police Control</div>
+        </a>
+        <a class="call-btn" href="tel:1930">
+          <div class="call-icon">💻</div>
+          <div class="call-number">1930</div>
+          <div class="call-name">Cyber Crime / Online Fraud</div>
+        </a>
+      </div>
+
+      <div class="section-divider">Traffic</div>
+      <div class="call-grid">
+        <a class="call-btn" href="tel:1095">
+          <div class="call-icon">🚦</div>
+          <div class="call-number">1095</div>
+          <div class="call-name">Traffic Police Helpline</div>
+        </a>
+        <a class="call-btn" href="tel:08022943030">
+          <div class="call-icon">🛣️</div>
+          <div class="call-number" style="font-size:16px;">080-2294 3030</div>
+          <div class="call-name">Traffic Police Alt.</div>
+        </a>
+      </div>
+
+      <div class="section-divider">Vulnerable Citizens</div>
+      <div class="call-grid">
+        <a class="call-btn" href="tel:1091">
+          <div class="call-icon">👩</div>
+          <div class="call-number">1091</div>
+          <div class="call-name">Women Helpline</div>
+        </a>
+        <a class="call-btn" href="tel:1090">
+          <div class="call-icon">👴</div>
+          <div class="call-number">1090</div>
+          <div class="call-name">Senior Citizen Helpline</div>
+        </a>
+        <a class="call-btn" href="tel:1098">
+          <div class="call-icon">🧒</div>
+          <div class="call-number">1098</div>
+          <div class="call-name">Child Helpline</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end modal-overlay -->
+
+<script>
+  function openModal(type) {
+    const overlay = document.getElementById('modalOverlay');
+    // hide all modals
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    // show the right one
+    const target = document.getElementById('modal-' + type);
+    if (target) {
+      target.style.display = 'block';
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeOnOverlay(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>
